@@ -1,0 +1,13 @@
+{
+  "user" : {
+    "username" : "caixa",
+    "provider" : "local",
+    "displayName" : "Caixa Local",
+    "profileImageURL" : "modules/users/client/img/profile/default.png",
+    "password" : "12345678Ab@",
+    "email" : "caixa@localhost.com",
+    "lastName" : "Local",
+    "firstName" : "Caixa",
+    "roles":  ["caixa"]
+  }
+}

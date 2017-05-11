@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Backups</h1>
+  </div>
+  <div class="list-group">
+    <a data-ng-repeat="backup in vm.backups"
+       data-ui-sref="backups.view({ backupId: backup._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span data-ng-bind="backup.created | date:'mediumDate'"></span>
+        by
+        <span data-ng-if="backup.user" data-ng-bind="backup.user.displayName"></span>
+        <span data-ng-if="!backup.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" data-ng-bind="backup.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.backups.$resolved && !vm.backups.length">
+    No Backups yet, why don't you <a data-ui-sref="backups.create">create one</a>?
+  </div>
+</section>

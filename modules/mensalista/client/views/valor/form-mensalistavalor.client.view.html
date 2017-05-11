@@ -1,0 +1,27 @@
+<section>
+  <div class="page-header">
+    <h1>Novo Mensalista Valor</h1>
+  </div>
+  <div class="col-xs-12 col-md-12">
+    <form name="vm.form.mensalistaValorForm" ng-submit="update(vm.form.mensalistaValorForm.$valid)" novalidate>
+      <fieldset>
+        <div class="table">
+          <div class="row">
+            <div class="form-group" show-errors>
+              <div class="col-xs-5 col-md-2 vertical-align-bottom">
+                <label for="valorVigencia">Valor</label>
+                <input type="text" id="valorMensalidade" name="valorMensalidade" ui-number-mask="decimals" ng-model="vm.mensalistavalor.valor" class="form-control" required>
+                <div ng-messages="vm.form.mensalistaValorForm.valorMensalidade.$error" role="alert">
+                  <p class="help-block error-text" ng-message="required">Valor é obrigatório.</p>
+                </div>
+              </div>
+              <div class="col-xs-5 col-md-2 vertical-align-bottom">
+                <button type="submit" class="btn btn-success">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,26 @@
+<section>
+  <div class="page-header">
+    <h1 data-ng-bind="vm.modelo.nome"></h1>
+  </div>
+  <div class="pull-right"
+       data-ng-show="vm.modelo.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       data-ui-sref="modelos.edit({ modeloId: vm.modelo._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" data-ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span data-ng-bind="vm.modelo.created | date:'mediumDate'"></span>
+      by
+      <span data-ng-if="vm.modelo.user"
+            data-ng-bind="vm.modelo.user.displayName"></span>
+      <span data-ng-if="!vm.modelo.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" data-ng-bind="vm.modelo.content"></p>
+</section>

@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Marcas</h1>
+  </div>
+  <div class="list-group">
+    <a data-ng-repeat="marca in vm.marcas"
+       data-ui-sref="marcas.view({ marcaId: marca._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span data-ng-bind="marca.created | date:'mediumDate'"></span>
+        by
+        <span data-ng-if="marca.user" data-ng-bind="marca.user.displayName"></span>
+        <span data-ng-if="!marca.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" data-ng-bind="marca.nome"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.marcas.$resolved && !vm.marcas.length">
+    Sem marcas <a data-ui-sref="marcas.create">clique aqui para cadastrar.</a>?
+  </div>
+</section>

@@ -1,0 +1,67 @@
+<div class="container" ng-controller="HeaderController">
+  <div  class="navbar-header">
+    <button   class="navbar-toggle" type="button" ng-click="toggleCollapsibleMenu()">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a ui-sref="home" class="navbar-brand">Tecnode Park</a>
+  </div>
+  <div ng-class="{ collapse: !isCollapsed }" uib-dropdown-menu class="collapse navbar-collapse" role="navigation">
+    <!-- Single button -->
+    <ul class="nav navbar-nav" ng-if="menu.shouldRender(authentication.user);">
+      <li uib-dropdown ng-repeat="item in menu.items | orderBy: 'position'" ng-if="item.shouldRender(authentication.user);" ng-switch="item.type" ng-class="{ active: $state.includes(item.state), dropdown: item.type === 'dropdown' }" class="{{item.class}}" dropdown="item.type === 'dropdown'">
+        <a ng-switch-when="dropdown" class="dropdown-toggle" uib-dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="caret"></span></a>
+        <ul ng-switch-when="dropdown" class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+          <li ng-repeat="subitem in item.items | orderBy: 'position'" ng-if="subitem.shouldRender(authentication.user);" ui-sref-active="active">
+            <a ui-sref="{{subitem.state}}" ng-bind="subitem.title" ng-click="toggleCollapsibleMenu()"></a>
+
+          </li>
+        </ul>
+        <a ng-switch-default ui-sref="{{item.state}}" ng-bind="item.title"></a>
+      </li>
+    </ul>
+
+
+    <ul  class="nav navbar-nav navbar-right" ng-hide="authentication.user">
+      <!--
+      <li ui-sref-active="active">
+      <a ui-sref="authentication.signup">Sign Up</a>
+    </li>
+  -->
+  <li class="divider-vertical"></li>
+  <li ui-sref-active="active">
+    <a ui-sref="authentication.signin">Entrar</a>
+  </li>
+</ul>
+<ul class="nav navbar-nav navbar-right" ng-show="authentication.user">
+  <li class="dropdown" uib-dropdown>
+    <a class="dropdown-toggle user-header-dropdown-toggle" uib-dropdown-toggle  role="button">
+      <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
+      <span ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+      <!--  <li ui-sref-active="active">
+      <a ui-sref="settings.profile">Edit Profile</a>
+    </li>
+    <li ui-sref-active="active">
+    <a ui-sref="settings.picture">Change Profile Picture</a>
+  </li>
+  <li ui-sref-active="active">
+  <a ui-sref="settings.accounts">Manage Social Accounts</a>
+</li>
+
+-->
+<li ui-sref-active="active" ng-show="authentication.user.provider === 'local'">
+  <a ui-sref="settings.password">Mudar senha</a>
+</li>
+<li class="divider"></li>
+<li>
+  <a href="/api/auth/signout" target="_self">Sair</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>

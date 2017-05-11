@@ -1,0 +1,122 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.entradaveiculo._id ? 'Edit Entradaveiculo' : 'Registro de entrada'}}</h1>
+  </div>
+  <div class="col-md-12">
+
+    <form name="vm.form.entradaveiculoForm" class="form-horizontal" ng-submit="vm.save(vm.form.entradaveiculoForm.$valid)" novalidate>
+      <fieldset class="table">
+        <div class="form-group" show-errors>
+          <div class="row">
+            <div class="col-xs-4 col-sm-2" >
+              <label class="control-label" for="placa">Placa</label>
+            </div>
+            <div class="col-xs-4 col-sm-4">
+              <input autocomplete="off" type="text" name="placaLetras" ng-model="vm.entradaveiculo.placaLetras"
+              id="placaLetras" auto-tab-to="placaNumeros" maxLength="3" class="text-uppercase form-control" placeholder="Letras" required>
+              <div ng-messages="vm.form.entradaveiculoForm.placaLetras.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Informe as letras.</p>
+              </div>
+            </div>
+            <div class="col-xs-4 col-sm-6">
+              <input autocomplete="off" name="placaNumeros"  type="number" ng-blur='buscaMensalistaByPlaca()'
+              ng-model="vm.entradaveiculo.placaNumeros" id="placaNumeros" auto-tab-to="inputVeiculo"
+              maxLength="4" class="text-uppercase form-control" placeholder="Números" required>
+              <div ng-messages="vm.form.entradaveiculoForm.placaNumeros.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Informe os números.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" ng-show='vm.mensalista' >
+          <div class="row" >
+            <div class="col-xs-4 col-sm-2" >
+              <label class="control-label">Mensalista</label>
+            </div>
+            <div class="col-xs-8 col-md-10">
+              <input name="mensalistaNome" disabled type="text" ng-model="vm.mensalista.nome" id="mensalistaNome" class="text-uppercase form-control">
+            </div>
+          </div>
+          <div class="row" ng-show="(vm.mensalista.status == 'atraso')">
+            <div class="col-xs-4 col-sm-2" >
+              <label class="control-label"></label>
+            </div>
+            <div class="col-xs-8 col-md-10">
+              <strong><span class="text-danger">Verificar Pendência</span></strong>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <div class="row">
+            <div class="col-xs-offset-4 col-sm-offset-2 col-xs-8 col-sm-4">
+              <label>
+                <input type="radio" ng-model="searchVeiculo.categoriaVeiculo" ng-change="veiculoSearchCanged()" value="CARRO" ng-checked="true">
+                Carro
+              </label>
+              <label>
+                <input type="radio" ng-model="searchVeiculo.categoriaVeiculo" ng-change="veiculoSearchCanged()" value="MOTO">
+                Moto
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4 col-sm-2">
+              <label class="control-label text-left"  for="veiculo">Marca/Modelo</label>
+            </div>
+            <div class="col-xs-8 col-sm-4">
+
+              <input autocomplete="off" id="inputVeiculo" ng-disabled='vm.mensalista' name="veiculo"
+              ng-model="veiculoSelecionado" type="text" typeahead-on-select="onSelect($item, $model, $label)"
+              uib-typeahead="veiculo as veiculo.marcaModelo for veiculo in veiculos | filter:$viewValue |  limitTo:8" class="form-control"
+              >
+              <div ng-messages="vm.form.entradaveiculoForm.veiculo.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Informe o veículo</p>
+              </div>
+            </div>
+            <div class="col-xs-4 col-sm-2">
+              <label class="control-label text-left" >Cor</label>
+            </div>
+
+            <div class="col-xs-8 col-sm-4">
+              <select ng-disabled='vm.mensalista' name="corVeiculoSelect" id="corVeiculoSelect" ng-model="vm.entradaveiculo.corVeiculo" class="form-control">
+                <option data-ng-repeat="cor in cores">{{cor}}</option>
+              </select>
+              <!--
+              <input id="inputCorVeiculo" ng-disabled='vm.mensalista' name="corVeiculo" type="text" ng-model="vm.entradaveiculo.corVeiculo" uib-typeahead="corVeiculo for corVeiculo in cores | filter:$viewValue | limitTo:8" class="form-control">
+              <div ng-messages="vm.form.entradaveiculoForm.corVeiculo.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Informe a cor do veículo</p>
+
+            -->
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="form-group" >
+        <div class="row">
+          <div class="col-xs-4 col-sm-2" >
+            <label class="control-label" for="numeroPrisma">Prisma</label>
+          </div>
+          <div class="col-xs-8 col-sm-10">
+            <input name="numeroPrisma" type="number" ng-model="vm.entradaveiculo.numeroPrisma" id="numeroPrisma" class="form-control" placeholder="Prisma">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" >
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 text-right" >
+            <button type="submit" class="btn btn-default">{{vm.entradaveiculo._id ? 'Update' : 'Registrar'}}</button>
+          </div>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </div>
+
+    </fieldset>
+  </form>
+</div>
+
+</section>

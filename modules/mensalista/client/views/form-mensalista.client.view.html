@@ -1,0 +1,275 @@
+<section>
+
+  <div class="page-header">
+    <h1>{{vm.mensalista._id ? 'Editar mensalista' : 'Cadastrar novo mensalista'}}</h1>
+    <h2 ng-show="vm.mensalista._id" ng-class="vm.mensalista.status === 'aberto' ? 'text-info' : (vm.mensalista.status === 'atraso' ? 'text-danger' : 'text-success')">{{vm.mensalista.status === 'aberto' ? 'Aberto' : (vm.mensalista === 'atraso' ? 'Em atraso' : 'Pago')}}</h2>
+    <a class="btn btn-danger"  ng-show="{{vm.mensalista._id && vm.mensalista.status != 'cancelado'}}"
+       data-ui-sref="mensalista.cancel({ mensalistaId: vm.mensalista._id })">
+      Cancelar Plano
+    </a>
+
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.mensalistaForm" class="form-horizontal" ng-submit="vm.save(vm.form.mensalistaForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <label class="control-label" for="nome">Nome completo</label>
+              <input name="nome" type="text" ng-model="vm.mensalista.nome" id="nome" class="form-control" placeholder="Nome" required>
+              <div ng-messages="vm.form.mensalistaForm.nome.$error" role="alert">
+                <p class="help-block error-text" ng-message="required" >Obrigatório</p>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+              <label class="control-label" for="cpf">CPF</label>
+              <input name="cpf" type="text" ng-model="vm.mensalista.cpf" id="cpf" class="form-control" placeholder="CPF" required>
+              <div ng-messages="vm.form.mensalistaForm.cpf.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Obrigatório</p>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+              <label class="control-label" for="rg">RG</label>
+              <input name="rg" type="text" ng-model="vm.mensalista.rg" id="rg" class="form-control" placeholder="RG" required>
+              <div ng-messages="vm.form.mensalistaForm.rg.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Obrigatório</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <label class="control-label" for="endereco">Endereço completo</label>
+              <input name="endereco" type="text" ng-model="vm.mensalista.endereco" id="endereco" class="form-control" placeholder="Endereco" required>
+              <div ng-messages="vm.form.mensalistaForm.endereco.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Obrigatório</p>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <label class="control-label" for="complemento">Complemento</label>
+              <input name="complemento" type="text" ng-model="vm.mensalista.complemento" id="complemento" class="form-control" placeholder="Complemento">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Telefones</h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-xs-12 col-md-12">
+                    <button type="button" ng-click="addNewTelefone()" class="btn btn-primary">Adicionar</button>
+                  </div>
+                </div>
+                <br/>
+                <div class="list-group">
+                  <div class="">
+                    <table class="table">
+                      <thead>
+                        <th>
+                          Número
+                        </th>
+                        <th></th>
+                      </thead>
+                      <tbody>
+                        <tr data-ng-repeat="item in vm.mensalista.telefones | filter:search">
+                          <td>
+                            <span data-ng-bind="item"></span>
+                          </td>
+                          <td>
+                            <button type="button" ng-click="removeTelefone(item)" class="btn btn-danger glyphicon glyphicon-trash" name="{{ 'btTelefoneRemove_' + item }}" tooltip="Remover" tooltipleft="-12"></button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="col-xs-12 col-md-12">
+                  <div class="table">
+                    <div class="row" ng-repeat="itemToAdd in telefonesToAdd">
+                      <div class="row">
+                        <div class="col-xs-8">
+                          <input class="form-control" type="number" ng-model="itemToAdd" required />
+                        </div>
+                        <div class="col-xs-4 text-right">
+                          <button type="button" ng-click="CancelNewTelefone(itemToAdd)" class="btn btn-warning">Cancelar</button>
+                          <button type="button" ng-disabled="itemToAdd == null || itemToAdd == undefined || itemToAdd == ''" ng-click="addTelefone(itemToAdd)" class="btn btn-primary">Confirmar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Carros</h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-xs-12 col-md-12">
+                    <button type="button" ng-click="addNewCarro()" ng-show="!escodeBotoesCarro" class="btn btn-primary">Adicionar novo carro</button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+
+
+                    <div class="list-group">
+                      <div class="">
+                        <table class="table">
+                          <thead>
+                            <th>
+                              Marca/Modelo
+                            </th>
+                            <th>
+                              Placa
+                            </th>
+                            <th>
+                              Cor
+                            </th>
+                            <th></th>
+                          </thead>
+                          <tbody>
+                            <tr data-ng-repeat="item in vm.mensalista.carros | filter:search">
+                              <td>
+                                <span data-ng-bind="item.marcaModelo.marcaModelo"></span>
+                              </td>
+                              <td>
+                                <span data-ng-bind="item.placaLetras + '-' + item.placaNumeros"></span>
+                              </td>
+                              <td>
+                                <span data-ng-bind="item.corVeiculo"></span>
+                              </td>
+                              <td>
+                                <button type="button" ng-click="addNewCarro(item)" name="{{ 'btVeiculoAdd_' + item.placaLetras + '_' + item.placaNumeros }}"  class="btn btn-primary glyphicon glyphicon-edit" tooltip="Editar" tooltipleft="-12"></button>
+                                <button type="button" ng-click="removeCarro(item)" name="{{ 'btVeiculoRemove_' + item.placaLetras + '_' + item.placaNumeros }}" class="btn btn-danger glyphicon glyphicon-trash" tooltip="Remover" tooltipleft="-12"></button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <div ng-repeat="itemToAdd in carrosToAdd">
+                      <ng-form name="carroForm">
+                      <div class="row" show-erros>
+                        <div class="col-xs-12 col-md-4" class="form-group" ng-class="{ 'has-error' : carroForm.marcaModelo.$invalid }">
+                          <label class="control-label text-left"  for="veiculo">Marca/Modelo</label>
+                          <input autocomplete="off" id="marcaModelo" name="marcaModelo"
+                          ng-model="veiculoSelecionado" type="text" typeahead-on-select="onSelect($item, $model, $label)"
+                          uib-typeahead="veiculo as veiculo.marcaModelo for veiculo in veiculos | filter:$viewValue | limitTo:8" class="form-control"
+                          typeahead-editable="false" required>
+                          <div ng-messages="carroForm.marcaModelo.$error" role="alert">
+                            <p class="help-block error-text" ng-message="required">Obrigatório.</p>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-md-2" class="form-group" ng-class="{ 'has-error' : carroForm.placaLetras.$invalid }">
+                          <label class="control-label" for="placa">Placa letras</label>
+                          <input name="placaLetras"  auto-tab-to="placaNumerosEdit"
+                          type="text" maxlength="3" ng-model="itemToAdd.placaLetras" id="placaLetras" class="form-control"
+                          placeholder="Letras" required style="text-transform: uppercase" letters-only required>
+                          <div ng-messages="carroForm.placaLetras.$error" role="alert">
+                            <p class="help-block error-text" ng-message="required">Obrigatório.</p>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3" class="form-group" ng-class="{ 'has-error' : carroForm.placaNumeros.$invalid }">
+                          <label class="control-label" for="placaNumeros">Placa números</label>
+                          <input name="placaNumerosEdit" type="number" ng-minlength="4"
+                          ng-maxlength="4" maxlength="4"  auto-tab-to="corVeiculoSelect" min="0000" max="9999" ng-keupress="limit(this)"
+                          ng-model="itemToAdd.placaNumeros" id="placaNumerosEdit"
+                          class="form-control" placeholder="Números">
+                          <div ng-messages="carroForm.placaNumeros.$error" role="alert">
+                            <p class="help-block error-text" ng-message="required">Obrigatório.</p>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3" class="form-group" ng-class="{ 'has-error' : carroForm.corVeiculoSelect.$invalid }">
+                          <label class="control-label" for="corVeiculo">Cor</label>
+                          <select name="corVeiculoSelect" id="corVeiculoSelect"  ng-model="itemToAdd.corVeiculo" class="form-control" required>
+                            <option data-ng-repeat="cor in cores">{{cor}}</option>
+                          </select>
+                          <div ng-messages="carroForm.corVeiculoSelect.$error" role="alert">
+                            <p class="help-block error-text" ng-message="required">Obrigatório.</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <br/>
+                      <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                          <table>
+                            <thead>
+                              <th class="col-xs-6">
+                                Dia
+                              </th>
+                              <th class="col-xs-3">
+                                Entrada
+                              </th>
+                              <th class="col-xs-3">
+                                Saída
+                              </th>
+                            </thead>
+                            <tbody>
+                              <tr ng-repeat="item in itemToAdd.diasDaSemana">
+                                <td class="col-xs-6">
+                                  <div class="checkbox" >
+                                    <label>
+                                      <input type="checkbox" ng-model="item.selecionado"> {{item.nome}}
+                                    </label>
+                                  </div>
+                                </td>
+                                <td  class="col-xs-3" class="form-group" ng-class="{ 'has-error' : carroForm.horarioInicial.$invalid }">
+                                  <input name="horarioInicial" type="time" ng-model="item.horarioInicial" id="horarioInicial" class="form-control" placeholder="Entrada" required>
+                                  <div ng-messages="carroForm.horarioInicial.$error" role="alert">
+                                    <p class="help-block error-text" ng-message="required">Obrigatório.</p>
+                                  </div>
+                                </td>
+                                <td  class="col-xs-3">
+                                  <input name="horarioFinal" type="time" ng-model="item.horarioFinal" id="horarioFinal" class="form-control" placeholder="Saída" required>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <br/>
+                          <div class="row">
+                            <div class="col-xs-6">
+                              <button type="button" ng-click="addCarro(itemToAdd, carroForm)" class="btn btn-primary">OK</button>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                              <button type="button" ng-click="cancelAddCarro(itemToAdd)" class="btn btn-warning">Cancelar</button>
+                            </div>
+                            <div ng-show="carroForm.error" class="text-danger">
+                              <strong ng-bind="carroForm.error"></strong>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      </ng-form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group text-right">
+          <button type="submit" class="btn btn-success">{{vm.mensalista._id ? 'Alterar' : 'Incluir'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,29 @@
+﻿<section>
+  <div class="page-header">
+    <h4 data-ng-bind="vm.entradaveiculo.placa"></h4>
+      <span data-ng-bind="vm.entradaveiculo.veiculo"></span>
+  </div>
+  <div class="pull-right"
+       data-ng-show="vm.entradaveiculo.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       data-ui-sref="entradaveiculos.edit({ entradaveiculoId: vm.entradaveiculo._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" data-ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <div style="col-xm-12 col-sm-12" >
+    <img  style="max-width: 100%; max-height: 100%;" ng-src="{{vm.entradaveiculo.fotoEntrada}}" alt="Foto da entrada">
+  </div>
+  <small>
+    <em class="text-muted">
+      <label>Entrada:</label>
+      <span data-ng-bind="vm.entradaveiculo.created | date:'mediumDate'"></span>
+      <span data-ng-if="vm.entradaveiculo.user"
+            data-ng-bind="vm.entradaveiculo.user.displayName"></span>
+      <span data-ng-if="!vm.entradaveiculo.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" data-ng-bind="vm.entradaveiculo.content"></p>
+</section>

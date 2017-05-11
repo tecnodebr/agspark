@@ -1,0 +1,82 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.faixapreco._id ? 'Editar Faixa de Preço' : 'Nova Faixa de Preço'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.faixaprecoForm" class="form-horizontal" ng-submit="vm.save(vm.form.faixaprecoForm.$valid)" novalidate>
+      <fieldset>
+        <div class="table">
+          <div class="row">
+            <div class="col-xs-12 col-md-12 col-lg-12 col-xl-12">
+              <div class="form-group" show-errors>
+                <label class="control-label" for="descricao">Descrição</label>
+                <input name="descricao" type="text" ng-model="vm.faixapreco.descricao" id="descricao" class="form-control" placeholder="Descrição" required>
+                <div ng-messages="vm.faixaprecoForm.descricao.$error" role="alert">
+                  <p class="help-block error-text" ng-message="required">Informe uma descrição ex. Até 30 minutos</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-4 col-md-4 col-lg-4">
+              <div class="form-group" show-errors>
+                <label class="control-label" for="tempoInicial">Tempo Inicial (Em minutos)</label>
+                <input name="tempoInicial" type="Number" ng-model="vm.faixapreco.tempoInicial" id="tempoInicial" class="form-control" placeholder="0" required>
+                <div ng-messages="vm.form.faixaprecoForm.tempoInicial.$error" role="alert">
+                  <p class="help-block error-text" ng-message="required">Tempo inicial requerido.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-4 col-md-4 col-lg-4">
+              <div class="form-group" show-errors>
+                <label class="control-label" for="tempoFinal">Tempo Final (Em minutos)</label>
+                <input name="tempoFinal" type="Number" ng-model="vm.faixapreco.tempoFinal" id="tempoFinal" class="form-control" placeholder="0" required>
+                <div ng-messages="vm.form.faixaprecoForm.tempoFinal.$error" role="alert">
+                  <p class="help-block error-text" ng-message="required">Tempo final requerido.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-4 col-md-4 col-lg-4">
+              <div class="form-group" show-errors>
+                <label class="control-label" for="tempoAdicional">Tempo Adicional (Em minutos)</label>
+                <input name="tempoAdicional" type="Number" ng-model="vm.faixapreco.tempoAdicional" id="tempoAdicional" class="form-control" placeholder="0" required>
+                <div ng-messages="vm.form.faixaprecoForm.tempoAdicional.$error" role="alert">
+                  <p class="help-block error-text" ng-message="required">Tempo adicional.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6 col-md-6 col-lg-6">
+              <div class="form-group" show-errors>
+                <label class="control-label" for="valorTempoNormal">Valor Tempo Normal</label>
+                <input name="tempoFinal" type="Number" ng-model="vm.faixapreco.valorTempoNormal" id="valorTempoNormal" class="form-control" placeholder="0" required>
+                <div ng-messages="vm.form.faixaprecoForm.valorTempoNormal.$error" role="alert">
+                  <p class="help-block error-text" ng-message="required">Valor tempo normal requerido.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6 col-md-6 col-lg-6">
+              <div class="form-group" show-errors>
+                <label class="control-label" for="valorTempoAdicional">Valor Tempo Adicional</label>
+                <input name="valorTempoAdicional" type="Number" ng-model="vm.faixapreco.valorTempoAdicional" id="valorTempoAdicional" class="form-control" placeholder="0" required>
+                <div ng-messages="vm.form.faixaprecoForm.valorTempoAdicional.$error" role="alert">
+                  <p class="help-block error-text" ng-message="required">Valor tempo adicional.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-default">{{vm.faixapreco._id ? 'Atualizar' : 'Incluir'}}</button>
+          </div>
+          <div ng-show="vm.error" class="text-danger">
+            <strong ng-bind="vm.error"></strong>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

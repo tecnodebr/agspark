@@ -1,0 +1,31 @@
+<section>
+  <div class="page-header">
+    <h1 data-ng-bind="vm.mensalista.name"></h1>
+  </div>
+  <div class="pull-right"
+       data-ng-show="vm.mensalista.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       data-ui-sref="mensalista.edit({ mensalistaId: vm.mensalista._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" data-ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <label>Nome: </label>
+    <span data-ng-bind="vm.mensalista.nome"></span>
+
+    <label>CPF: </label>
+    <span data-ng-bind="vm.mensalista.cpf"></span>
+    <em  class="text-muted">
+      Cadastrado em
+            <span data-ng-bind="vm.mensalista.created | date:'dd/MM/yyyy'"></span>
+      por
+      <span data-ng-if="vm.mensalista.user"
+            data-ng-bind="vm.mensalista.user.displayName"></span>
+      <span data-ng-if="!vm.mensalista.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" data-ng-bind="vm.mensalista.content"></p>
+</section>

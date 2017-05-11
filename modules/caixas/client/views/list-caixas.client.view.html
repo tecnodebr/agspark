@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Caixas</h1>
+  </div>
+  <div class="list-group">
+    <a data-ng-repeat="caixa in vm.caixas"
+       data-ui-sref="caixas.view({ caixaId: caixa._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span data-ng-bind="caixa.created | date:'mediumDate'"></span>
+        by
+        <span data-ng-if="caixa.user" data-ng-bind="caixa.user.displayName"></span>
+        <span data-ng-if="!caixa.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" data-ng-bind="caixa.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.caixas.$resolved && !vm.caixas.length">
+    No Caixas yet, why don't you <a data-ui-sref="caixas.create">create one</a>?
+  </div>
+</section>

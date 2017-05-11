@@ -1,0 +1,64 @@
+<section>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-xs-4 col-md-4">
+        <h1>Mensalistas</h1>
+      </div>
+      <div class="col-xs-8 col-md-offset-2 col-md-6  text-right" style="margin-top: 2em">
+        <input class="form-control col-md-4" type="text" ng-model="search.$" placeholder="Geral"  />
+      </div>
+    </div>
+  </div>
+  <div class="list-group">
+    <table class="table">
+      <thead>
+        <th>
+          Nome
+        </th>
+        <th>
+          CPF
+        </th>
+        <th>
+          RG
+        </th>
+        <th>
+          Usuário
+        </th>
+        <th>
+          Data cadastro
+        </th>
+        <th>
+
+        </th>
+      </thead>
+      <body>
+        <tr data-ng-repeat="mensalista in vm.mensalista | filter:search"
+           data-ui-sref="mensalista.view({ mensalistaId: mensalista._id })" >
+          <td>
+            <span data-ng-bind="mensalista.nome"></span>
+          </td>
+          <td>
+            <span data-ng-bind="mensalista.cpf"></span>
+          </td>
+          <td>
+            <span data-ng-bind="mensalista.rg"></span>
+          </td>
+          <td>
+                <span data-ng-bind="mensalista.user.displayName"></span>
+          </td>
+          <td>
+              <span data-ng-bind="mensalista.created | date:'dd/HH/yyyy HH:mm:ss'"></span>
+          </td>
+          <td>
+            <button type="button" class="btn btn-primary btn-xs">Editar</button>
+          </td>
+        </tr>
+      </body>
+    </table>
+
+
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.mensalista.$resolved && !vm.mensalista.length">
+    No Mensalista yet, why don't you <a data-ui-sref="mensalista.create">create one</a>?
+  </div>
+</section>

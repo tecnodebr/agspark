@@ -1,0 +1,75 @@
+<section>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-xs-12 col-md-4">
+        <h1>Mensalista Valor</h1>
+      </div>
+      <div class="col-xs-12 col-md-offset-2 col-md-6  text-right" style="margin-top: 2em">
+        <input class="form-control col-md-4" type="text" ng-model="search.$" placeholder="Geral"  />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-12">
+      <a data-ui-sref="mensalistavalor.create" class="btn btn-primary" tooltip="Novo valor de mensalidade">
+          <span class="glyphicon glyphicon-plus"></span> Novo
+      </a>
+    </div>
+  </div>
+  <div class="list-group">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <th>
+            <div class="hidden-xs">
+              De
+            </div>
+            <div class="visible-xs-block">
+              Período
+            </div>
+          </th>
+          <th class="hidden-xs">
+            Até
+          </th>
+          <th>
+            Usuário
+          </th>
+          <th>
+            Valor
+          </th>
+          <th>
+            Ativa
+          </th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr data-ng-repeat="vgVl in vm.mensalistavalorlista | filter:search">
+            <td>
+              <div>
+                <span data-ng-bind="vgVl.created | date:'dd/MM/yyyy HH:mm:ss'"></span>
+              </div>
+              <div class="visible-xs-block">
+                <span  data-ng-bind="vgVl.disabled | date:'dd/MM/yyyy HH:mm:ss'"></span>
+              </div>
+            </td>
+            <td class="hidden-xs">
+              <span data-ng-bind="vgVl.disabled | date:'dd/MM/yyyy HH:mm:ss'"></span>
+            </td>
+            <td>
+              <span data-ng-bind="vgVl.user.username"></span>
+            </td>
+            <td>
+              <span data-ng-bind="vgVl.valor | number: 2"></span>
+            </td>
+            <td>
+              <span ng-if="vgVl.ativo" class="glyphicon glyphicon-ok-circle text-success" style="font-size: 20px; width: 50px;" tooltip="Ativo" tooltipleft="-16"></span>
+              <span ng-if="!vgVl.ativo" class="glyphicon glyphicon-ban-circle text-danger" style="font-size: 20px;" tooltip="Desativado"></span>
+            </td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

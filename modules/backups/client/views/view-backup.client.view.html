@@ -1,0 +1,26 @@
+<section>
+  <div class="page-header">
+    <h1 data-ng-bind="vm.backup.name"></h1>
+  </div>
+  <div class="pull-right"
+       data-ng-show="vm.backup.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       data-ui-sref="backups.edit({ backupId: vm.backup._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" data-ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span data-ng-bind="vm.backup.created | date:'mediumDate'"></span>
+      by
+      <span data-ng-if="vm.backup.user"
+            data-ng-bind="vm.backup.user.displayName"></span>
+      <span data-ng-if="!vm.backup.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" data-ng-bind="vm.backup.content"></p>
+</section>

@@ -1,0 +1,133 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.empresa._id ? 'Editar Empresa' : 'Cadastrar Empresa'}}</h1>
+  </div>
+  <div class="form-group col-md-12">
+    <form role="form" name="vm.form.empresaForm" class="form-horizontal" ng-submit="vm.save(vm.form.empresaForm.$valid)" novalidate>
+      <fieldset class="table">
+        <div class="col-md-12" show-errors>
+          <label class="control-label" for="nome">Nome da empresa</label>
+          <input name="nome" type="text" ng-model="vm.empresa.nome" id="nome" class="form-control" placeholder="Nome" required>
+          <div ng-messages="vm.form.empresaForm.nome.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Nome é de preenchimento obrigatório.</p>
+          </div>
+        </div>
+        <div  class="col-md-12" show-errors>
+          <label class="control-label" for="name">Razão Social</label>
+          <input name="razao_social" type="text" ng-model="vm.empresa.razao_social" id="razao_social" class="form-control" placeholder="Razão Social" required>
+          <div ng-messages="vm.form.empresaForm.razao_social.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Razao Social é de preenchimento obrigatório.</p>
+          </div>
+        </div>
+        <div class="col-md-12" show-errors>
+          <label class="control-label" for="name">CNPJ</label>
+          <input name="cnpj" type="text" ng-model="vm.empresa.cnpj" id="cnpj" class="form-control" placeholder="CNPJ" required>
+          <div ng-messages="vm.form.empresaForm.cnpj.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">CNPJ da empresa é de preenchimento obrigatório.</p>
+          </div>
+        </div>
+        <div class="col-md-12" show-errors>
+          <label class="control-label" for="telefone">Telefone</label>
+          <input name="telefone" type="text" ng-model="vm.empresa.telefone" id="telefone" class="form-control" placeholder="Telefone(s)">
+          <div ng-messages="vm.form.empresaForm.telefone.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Telefone da empresa é de preenchimento obrigatório.</p>
+          </div>
+        </div>
+        <div class="col-md-12" show-errors>
+          <label class="control-label" for="horariofuncionamento">Horário Funcionamento</label>
+          <input name="horariofuncionamento" type="text" ng-model="vm.empresa.horariofuncionamento" id="horariofuncionamento" class="form-control" placeholder="Horário Funcionamento">
+          <div ng-messages="vm.form.empresaForm.horariofuncionamento.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Horario Funcionamento da empresa é de preenchimento obrigatório.</p>
+          </div>
+        </div>
+
+
+        <div class="col-md-12" style="padding-top: 25px;">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Endereço</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-12" show-errors>
+                  <label class="control-label" for="logradouro">Logradouro</label>
+                  <input name="logradouro" type="text" ng-model="vm.empresa.endereco.logradouro" id="logradouro" class="form-control" placeholder="logradouro" required>
+                  <div ng-messages="vm.form.empresaForm.endereco.logradouro.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Endereço da empresa é de preenchimento obrigatório.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-xs-12" show-errors>
+                  <label class="control-label" for="numero">Número</label>
+                  <input name="numero" type="text" ng-model="vm.empresa.endereco.numero" id="numero" class="form-control" placeholder="número">
+                  <div ng-messages="vm.form.empresaForm.endereco.numero.$error" role="alert">
+                  </div>
+                </div>
+                <div class="col-md-6 col-xs-12" show-errors>
+                  <label class="control-label" for="complemento">Complemento</label>
+                  <input name="complemento" type="text" ng-model="vm.empresa.endereco.complemento" id="complemento" class="form-control" placeholder="complemento">
+                  <div ng-messages="vm.form.empresaForm.endereco.complemento.$error" role="alert">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12" show-errors>
+                  <label class="control-label" for="cidade">Cidade</label>
+                  <input name="cidade" type="text" ng-model="vm.empresa.endereco.cidade" id="cidade" class="form-control" placeholder="cidade">
+                  <div ng-messages="vm.form.empresaForm.endereco.cidade.$error" role="alert">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-xs-4" show-errors>
+                  <label class="control-label" for="uf">UF</label>
+                  <input name="uf" type="text" ng-model="vm.empresa.endereco.uf" id="uf" class="form-control" placeholder="uf">
+                  <div ng-messages="vm.form.empresaForm.endereco.cidade.$error" role="alert">
+                  </div>
+                </div>
+                <div class="col-md-8 col-xs-8" show-errors>
+                  <label class="control-label" for="cep">Cep</label>
+                  <input name="cep" type="text" ng-model="vm.empresa.endereco.cep" id="cep" class="form-control" placeholder="cep">
+                  <div ng-messages="vm.form.empresaForm.endereco.cep.$error" role="alert">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12" style="padding-top: 25px;">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Logo</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-12" show-errors>
+                  <div class="thumbnail" style="width: 200px; height: 150px; white-space: nowrap;">
+                    <div style="display:table-cell;vertical-align:middle;width:195px; height: 145px;">
+                      <img ng-if="files.base64 != ''" data-ng-src="data:{{files.filetype}};base64,{{files.base64}}" data-err-src="modules/configuracoes/client/img/not-available.png" class="center-block" style="max-width: 100%;max-height: 100%;" />
+                      <img ng-if="files.base64 == ''" ng-src="modules/configuracoes/client/img/not-available.png" class="center-block" style="max-width: 100%;max-height: 100%;" />
+                    </div>
+                  </div>
+                  <div>
+                    <span class="btn btn-default btn-file"><span>Selecionar</span><input type="file" ng-model="files" file-model="files" name="file" base-sixty-four-input  accept="image/*"></span>
+                    <a href="#" class="btn btn-default fileinput-exists" ng-click="deleteLogo()">Remover</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-default">{{vm.empresa._id ? 'Salvar' : 'Criar'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

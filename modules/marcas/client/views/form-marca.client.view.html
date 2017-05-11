@@ -1,0 +1,24 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.marca._id ? 'Editar Marca' : 'Nova Marca'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.marcaForm" class="form-horizontal" ng-submit="vm.save(vm.form.marcaForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Name</label>
+          <input name="nome" type="text" ng-model="vm.marca.nome" id="name" class="form-control" placeholder="Nome da marca" required>
+          <div ng-messages="vm.form.marcaForm.nome.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Obrigatório.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.marca._id ? 'Atualizar' : 'Criar'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

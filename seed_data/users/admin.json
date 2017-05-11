@@ -1,0 +1,13 @@
+{
+  "user" : {
+    "username" : "admin",
+    "provider" : "local",
+    "displayName" : "Admin Local",
+    "profileImageURL" : "modules/users/client/img/profile/default.png",
+    "password" : "12345678Ab@",
+    "email" : "admin@localhost.com",
+    "lastName" : "Local",
+    "firstName" : "Admin",
+    "roles":  ["admin"]
+  }
+}

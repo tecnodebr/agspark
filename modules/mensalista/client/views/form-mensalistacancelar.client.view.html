@@ -1,0 +1,121 @@
+<section>
+  <div class="page-header">
+    <h1><span class="text-danger">(Cancelamento) </span>{{vm.mensalista.nome}}</h1>
+  </div>
+
+  <div ng-show="vm.mensalistavigencias && (vm.mensalistavigencias | filter:{ status: '!pago'}).length > 0" class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-target="#collapsePendentes" role="button">
+      <h3 class="panel-title">Mensalidades em aberto/atraso</h3>
+    </div>
+    <div class="panel-body collapse" id="collapsePendentes" name="collapsePendentes">
+      <div class="list-group">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <th>
+                Vigência
+              </th>
+              <th>
+                Status
+              </th>
+              <th>
+                <div class="hidden-xs">
+                  Início
+                </div>
+                <div class="visible-xs-block">
+                  Período
+                </div>
+              </th>
+              <th class="hidden-xs">
+                Fim
+              </th>
+              <th class="text-right">
+                Valor
+              </th>
+            </thead>
+            <tbody>
+              <tr data-ng-repeat="vg in vm.mensalistavigencias | filter:{ status: '!pago'}">
+                <td>
+                  <span data-ng-bind="vg.vigencia.mes + '/' + vg.vigencia.ano"></span>
+                </td>
+                <td>
+                  <strong><span data-ng-bind="vg.status === 'aberto' ? 'Aberto' : (vg.status === 'atraso' ? 'Em atraso' : 'Pago')" ng-class="vg.status === 'aberto' ? 'text-info' : (vg.status === 'atraso' ? 'text-danger' : 'text-success')"></span></strong>
+                </td>
+                <td>
+                  <span data-ng-bind="vg.periodovalidade.inicio | date:'dd/MM/yyyy'"></span>
+                  <span class="visible-xs-block" data-ng-bind="vg.periodovalidade.fim | date:'dd/MM/yyyy'"></span>
+                </td>
+                <td class="hidden-xs">
+                  <span data-ng-bind="vg.periodovalidade.fim | date:'dd/MM/yyyy'"></span>
+                </td>
+                <td class="text-right">
+                  <span data-ng-bind="vg.valor | number:2"></span>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+             <tr>
+               <th>Total</th>
+                <th></th>
+                <th></th>
+                <th class="hidden-xs"></th>
+                <th class="text-right" data-ng-bind="'R$ ' + (totalMensalidadesPendenetes() | number: 2)"></th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <form name="vm.form.mensalistaCancelarForm" class="form-horizontal" novalidate>
+      <fieldset>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-xs-6 col-md-6">
+              <label>Pendência: </label>
+              <span data-ng-bind="'R$ ' + (totalMensalidadesPendenetes() | number: 2)"></span>
+            </div>
+            <div class="col-xs-6 col-md-6">
+              <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#collapsePagamento" scroll-to="valorFormaPagamento">Pagar</button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <div class="row">
+            <div class="col-xs-12 col-md-12">
+              <label>Disponível até: </label>
+              <div>
+                <md-datepicker ng-model="vm.lastVigencia.periodovalidade.fim" md-min-date="vm.hoje" md-max-date="vm.datafinalentradamaxdate" id="dtFim" name="dtFim" md-placeholder="Data Final" ng-change="recalcularVigencia(vm.lastVigencia)" required></md-datepicker>
+              </div>
+            </div>
+          </div>
+          <div ng-messages="vm.form.mensalistaCancelarForm.dtFim.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Obrigatório</p>
+            <p class="help-block error-text" ng-message="mindate">Data Inválida</p>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+    <div class="form-group collapse" id="collapsePagamento" name="collapsePagamento">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-md-6">
+            <section ui-view="formapagamentoAdd"></section>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group text-right">
+      <form name="vm.form.mensalistaCancelarButtonForm" class="form-horizontal" ng-submit="vm.save(vm.form.mensalistaCancelarForm.$valid, vm.form.mensalistaCancelarForm)" novalidate>
+        <fieldset>
+          <button type="submit" class="btn btn-success" ng-disabled="totalPagamentoAdd < formapagamentototal">Finalizar</button>
+        </fieldset>
+      </form>
+      <div ng-show="vm.error" class="text-danger">
+        <strong ng-bind="vm.error"></strong>
+      </div>
+    </div>
+
+  </div>
+</section>

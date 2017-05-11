@@ -1,0 +1,256 @@
+<section ng-init='statusCaixa()'>
+  <div class="page-header">
+    <h1>Controle de caixa</h1>
+  </div>
+
+
+  <form name="vm.form.caixaForm" class="form-horizontal" ng-submit="vm.abrirCaixa(vm.form.caixaForm.$valid)" novalidate>
+    <fieldset>
+      <div class="form-group" show-errors>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Abertura de caixa</h3>
+          </div>
+          <div class="table">
+            <br>
+            <div class="row vertical-align">
+              <div class="col-xs-12" ng-show="!vm.caixaAberto">
+                <div class="col-xs-12 col-md-3  text-right">
+                  <label class="control-label" for="valor">Valor de abertura (troco):</label>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                  <input name="caixaServiceAberturaValor" type="text" ui-number-mask="decimals" ng-model="vm.caixaServiceAbertura.valor" id="valor" class="form-control" placeholder="Valor" required>
+                  <div ng-messages="vm.form.caixaForm.caixaServiceAberturaValor.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Obrigatório</p>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-md-7  text-right">
+                  <button type="submit" class="btn btn-default" >Abrir caixa</button>
+                </div>
+              </div>
+            </div>
+            <div ng-show="vm.caixaServiceAbertura.error" class="text-danger">
+              <strong ng-bind="vm.caixaServiceAbertura.error"></strong>
+            </div>
+            <br/>
+            <div class="row vertical-align">
+              <div class="col-xs-12">
+                <div class="col-xs-6 col-md-2  text-right">
+                  <label class="control-label ">Valor de abertura:</label>
+                </div>
+                <div class="col-xs-6 col-md-2">
+                  <label class="control-label text-success">{{vm.caixaAberto.valor | currency}}</label>
+                </div>
+                <div class="col-xs-6 col-md-1  text-right">
+                  <label class="control-label">Data:</label>
+                </div>
+                <div class="col-xs-6 col-md-2">
+                  <label class="control-label text-success">{{vm.caixaAberto.created | date:'dd/MM/yyyy HH:mm:ss'}}</label>
+                </div>
+                <div class="col-xs-6 col-md-1  text-right">
+                  <label class="control-label">Usuário:</label>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <label class="control-label text-success">{{vm.caixaAberto.user.displayName}}</label>
+                </div>
+              </div>
+            </div>
+            <br/>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Detalhes do caixa</h3>
+          </div>
+          <div class="row ">
+            <div class="col-xs-12">
+              <div class="col-xs-12 col-md-4">
+                <h3><label>Situação caixa:</label><strong  ng-class="vm.situacaoCaixa === 'Aberto' ? 'text-success':'text-danger'"> {{vm.situacaoCaixa}}</strong></h3>
+              </div>
+              <div class="col-xs-12 col-md-4">
+                <h3><label>Operador:</label><strong> {{vm.caixaAberto.user.displayName}}</strong></h3>
+              </div>
+            </div>
+          </div>
+          <div class="row" ng-show="vm.registros.length == 0">
+            <div class="col-xs-12">
+              <div class="col-xs-12">
+                <h3><strong class="text-warning">Sem registros.</strong></h3>
+              </div>
+            </div>
+          </div>
+          <div ng-show="vm.registros.length > 0">
+            <h3 class="text-center">Movimentos</h3>
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover table-condensed">
+                <th>Data</th>
+                <th>Operação</th>
+                <th>Forma Pg.</th>
+                <th>Usuário</th>
+                <th>Observação</th>
+                <th>Valor</th>
+                <tr ng-repeat="registro in vm.registros" ng-class="registro.valor > 0 ? 'success':'danger'">
+                  <td>{{registro.created | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                  <td>{{registro.tipoEntrada}}</td>
+                  <td>{{registro.formaDePagamento}}</td>
+                  <td>{{registro.user.displayName}}</td>
+                  <td>{{registro.observacao}}</td>
+                  <td>{{registro.valor | currency}}</td>
+                </tr>
+              </table>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="col-xs-12 col-md-12">
+                  <div >
+                    <label>Valor:</label><strong> {{sumValor() | currency}}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+  <form name="vm.form.registrarEntradaForm" class="form-horizontal" ng-submit="vm.registrarEntrada(vm.form.registrarEntradaForm.$valid)" novalidate>
+    <fieldset>
+      <div class="form-group"  >
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <h3 class="panel-title">Registro de entradas</h3>
+          </div>
+          <br>
+          <div class="table">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="form-group" show-errors>
+                  <div class="col-xs-12 col-md-2 text-right">
+                    <label class="control-label" for="valor">Valor de retirada:</label>
+                  </div>
+                  <div class="col-xs-12 col-md-2">
+                    <input name="registrarEntradaFormvalor" type="text"
+                    ui-number-mask="decimals"
+                    non-zero-validation
+                    ng-model="vm.caixaServiceEntrada.valor" id="registrarEntradaFormvalor"
+                    class="form-control" placeholder="Valor" required>
+                    <div ng-messages="vm.form.registrarEntradaForm.registrarEntradaFormvalor.$error" role="alert">
+                      <p class="help-block error-text" ng-message="required">Obrigatório</p>
+                      <p class="help-block error-text" ng-message="nonzerovalidation">O valor deve ser maior que zero.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group" show-errors>
+                  <div class="col-xs-12 col-md-2 text-right">
+                    <label class="control-label" for="valor">Observação:</label>
+                  </div>
+                  <div class="col-xs-12 col-md-10">
+                    <input name="registrarEntradaFormobservacao" type="text" ng-model="vm.caixaServiceEntrada.observacao"
+                    id="registrarEntradaFormobservacao" class="form-control" placeholder="Observação" required>
+                    <div ng-messages="vm.form.registrarEntradaForm.registrarEntradaFormobservacao.$error" role="alert">
+                      <p class="help-block error-text" ng-message="required">Obrigatório</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12  col-md-12 text-right">
+                  <button type="submit"  class="btn btn-default">Registrar entrada</button>
+                </div>
+                <div ng-show="vm.caixaServiceEntrada.error" class="text-danger">
+                  <strong ng-bind="vm.caixaServiceEntrada.error"></strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+  <form name="vm.form.registrarSaidaForm" class="form-horizontal" ng-submit="vm.registrarSaida(vm.form.registrarSaidaForm.$valid)" novalidate>
+    <fieldset>
+      <div class="form-group"  >
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title">Registro de retiradas</h3>
+          </div>
+          <br>
+          <div class="table">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="form-group" show-errors>
+                  <div class="col-xs-12 col-md-2 text-right">
+                    <label class="control-label" for="valor">Valor de retirada:</label>
+                  </div>
+                  <div class="col-xs-12 col-md-2">
+                    <input name="registrarSaidaFormvalor" type="text"
+                    ui-number-mask="decimals"
+                    non-zero-validation
+                    ng-model="vm.caixaServiceSaida.valor" id="registrarSaidaFormvalor"
+                    class="form-control" placeholder="Valor" required>
+                    <div ng-messages="vm.form.registrarSaidaForm.registrarSaidaFormvalor.$error" role="alert">
+                      <p class="help-block error-text" ng-message="required">Obrigatório</p>
+                      <p class="help-block error-text" ng-message="nonzerovalidation">O valor deve ser maior que zero.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group" show-errors>
+                  <div class="col-xs-12 col-md-2 text-right">
+                    <label class="control-label" for="valor">Observação:</label>
+                  </div>
+                  <div class="col-xs-12 col-md-10">
+                    <input name="registrarSaidaFormobservacao" type="text" ng-model="vm.caixaServiceSaida.observacao"
+                    id="registrarSaidaFormobservacao" class="form-control" placeholder="Observação" required>
+                    <div ng-messages="vm.form.registrarSaidaForm.registrarSaidaFormobservacao.$error" role="alert">
+                      <p class="help-block error-text" ng-message="required">Obrigatório</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12  col-md-12 text-right">
+                  <button type="submit"  class="btn btn-default">Registrar saída</button>
+                </div>
+                <div ng-show="vm.caixaServiceSaida.error" class="text-danger">
+                  <strong ng-bind="vm.caixaServiceSaida.error"></strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+  <form name="vm.form.fecharCaixaForm" class="form-horizontal" ng-submit="vm.fecharCaixa(vm.form.fecharCaixaForm.$valid)" novalidate>
+    <fieldset>
+      <div class="form-group"  >
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Fechamento de caixa</h3>
+          </div>
+          <div ng-show="vm.error" class="text-danger">
+            <strong ng-bind="vm.error"></strong>
+          </div>
+          <br>
+          <div class="table">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="col-xs-12 col-md-12 text-right">
+                  <button type="submit" ng-show="vm.caixaAberto" class="btn btn-default">Fechar caixa</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+</section>

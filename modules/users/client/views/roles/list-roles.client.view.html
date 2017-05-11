@@ -1,0 +1,20 @@
+<section ng-controller="RolesController" ng-init="find()">
+  <div class="page-header">
+    <h1>Papéis</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="role in roles" ui-sref="roles.view({roleId: role._id})" class="list-group-item">
+      <small class="list-group-item-text">
+        Criado em
+        <span ng-bind="role.created | date:'mediumDate'"></span>
+        por
+        <span ng-bind="role.user.displayName"></span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="role.name"></h4>
+      <p class="list-group-item-text" ng-bind="role.active"></p>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="roles.$resolved && !roles.length">
+    Nenhum papel criado ainda, para criar um novo papel clique <a ui-sref="roles.create">aqui</a>
+  </div>
+</section>

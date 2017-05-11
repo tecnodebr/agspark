@@ -1,0 +1,72 @@
+<section>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-xs-4 col-md-2">
+        <h1>Pátio</h1>
+      </div>
+      <div class="col-xs-4 col-md-2 text-right" style="margin-top: 2em">
+        <input class="form-control" type="text" ng-model="search._idEntradaveiculo" placeholder="Ticket"  />
+      </div>
+      <div class="col-xs-4 col-md-offset-2 col-md-6  text-right" style="margin-top: 2em">
+        <input class="form-control col-md-4" type="text" ng-model="search.$" placeholder="Geral" />
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-lg-3" data-ng-repeat="entradaveiculo in entradasveiculos | filter:search">
+        <a data-ui-sref="entradaveiculos.saida({ entradaveiculoId: entradaveiculo._id })"
+        class="thumbnail">
+        <div class="list-group-item-text table">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <h2 class="list-group-item-heading" data-ng-bind="entradaveiculo._idEntradaveiculo"></h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4 col-sm-4">
+              <label>Caixa:</label>
+            </div>
+            <div class="col-xs-8 col-sm-8 text-right">
+              <span data-ng-if="entradaveiculo.user" data-ng-bind="entradaveiculo.user.username"></span>
+              <span data-ng-if="!entradaveiculo.user">Sem usuário</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4 col-sm-4">
+              <label>Entrada:</label>
+            </div>
+            <div class="col-xs-8 col-sm-8 text-right">
+              <span data-ng-bind="entradaveiculo.created | date:'dd/MM/yyyy HH:mm'"></span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4 col-sm-4">
+              <label>Tempo:</label>
+            </div>
+            <div class="col-xs-8 col-sm-8 text-right">
+              <span data-ng-bind="entradaveiculo.dynamicProperties.tempoPorExtenso"></span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <span class="list-group-item-heading" data-ng-bind="entradaveiculo.veiculo.marcaModelo"></span>
+              <span class="list-group-item-heading" data-ng-bind="entradaveiculo.corVeiculo"></span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <h2 class="list-group-item-heading" data-ng-bind="entradaveiculo.dynamicProperties.placa | uppercase"></h2>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-warning text-center" data-ng-if="vm.entradaveiculos.$resolved && !vm.entradaveiculos.length">
+  Nenhuma entrada registrada<a data-ui-sref="entradaveiculos.create">criar uma</a>?
+</div>
+</section>

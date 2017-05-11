@@ -1,0 +1,25 @@
+{
+  "role":  {
+    "name" : "caixa",
+    "rules": [
+        { "name" : "caixa_lista", "permissions": "*" },
+        { "name" : "caixa_status", "permissions": "*" },
+        { "name" : "pagamento", "permissions": "*" },
+        { "name" : "empresa_lista", "permissions": "*" },
+        { "name" : "empresa_id", "permissions": "*" },
+        { "name" : "tabelaprecos_lista", "permissions": "*" },
+        { "name" : "tabelaprecos_id", "permissions": "*" },
+        { "name" : "users_me", "permissions": "*" }
+      ],
+
+    "menus_state" : [
+        "caixas.list",
+        "caixas.create",
+        "tabelaprecos",
+        "tabelaprecos.list",
+        "tabelaprecos.create",
+        "faixaprecos.list",
+        "faixaprecos.create"
+    ]
+  }
+}

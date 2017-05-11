@@ -1,0 +1,29 @@
+﻿<section ng-controller="RolesController" ng-init="getRoleWithRulesAssociation()">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-4">
+                <h1>Papel <span ng-bind="role.name"></span></h1>
+            </div>
+            <div class="col-md-12" style="margin-top: 2em">
+                <input class="form-control col-md-4" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()" />
+            </div>
+        </div>
+    </div>
+    <form name="roleRulesForm" class="form-group" ng-submit="updateRules(roleRulesForm.$valid)">
+        <div class="list-group">
+            <div class="row" ng-repeat="rule in role.rules | orderBy:'rule.name'">
+                <div class="col-md-3">
+                    <span id="ruleName" name="rule.rule.name" ng-model="rule.rule.name">{{ rule.rule.name }}</span>
+                </div>
+                <div class="col-md-6">
+                    <div class="checkbox checkbox-slider--b checkbox-slider-md">
+                        <label>
+                            <input type="checkbox" name="rule.active" ng-model="rule.associated" ng-bind="{{ rule.associated != null }}" ><span></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-default">
+    </form>
+</section>

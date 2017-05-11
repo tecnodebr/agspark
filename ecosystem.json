@@ -1,0 +1,24 @@
+{
+  "apps" : [{
+    // Application #1
+    "name"        : "tecnode park",
+    "script"      : "grunt",
+    "args"        : ["-f"],
+    "watch"       : false,
+    "node_args"   : "",
+    "merge_logs"  : true,
+    "cwd"         : "/home/pi/projects/agsparkmean",
+    "autorestart" : false,
+    "env": {
+      "NODE_ENV": "development",
+      "AWESOME_SERVICE_API_TOKEN": "xxx"
+    },
+    "env_production" : {
+       "NODE_ENV": "production"
+    },
+    "env_staging" : {
+       "NODE_ENV" : "staging",
+       "TEST"     : true
+    }
+  }]
+}

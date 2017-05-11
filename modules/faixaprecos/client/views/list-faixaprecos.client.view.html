@@ -1,0 +1,55 @@
+<section>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-xs-4 col-md-4">
+        <h1>Faixas de preços</h1>
+      </div>
+      <div class="col-xs-8 col-md-offset-2 col-md-6  text-right" style="margin-top: 2em">
+        <input class="form-control col-md-4" type="text" ng-model="search.$" placeholder="Geral"  />
+      </div>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Normal</th>
+        <th>Adicional</th>
+        <th>
+          Usuário
+        </th>
+        <th>
+          Data
+        </th>
+        <th>
+
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="faixapreco in vm.faixaprecos | filter:search"
+      data-ui-sref="faixaprecos.view({ faixaprecoId: faixapreco._id })">
+      <td>
+        <span data-ng-bind="faixapreco.descricao"></span>
+      </td>
+      <td>
+        <span>{{faixapreco.valorTempoNormal | currency:"R$ "}}</span>
+      </td>
+      <td>
+        <span>{{faixapreco.valorTempoAdicional | currency:"R$ "}}</span>
+      </td>
+      <td>
+        <span data-ng-if="faixapreco.user" data-ng-bind="faixapreco.user.displayName"></span>
+      </td>
+      <td>
+        <span data-ng-bind="faixapreco.created | date:'dd/MM/yyyy HH:mm'"></span>
+      </td>
+      <td>
+        <button type="button" class="btn btn-primary btn-xs">Editar</button>
+      </td>
+    </tr>
+  </table>
+<div class="alert alert-warning text-center" data-ng-if="vm.faixaprecos.$resolved && !vm.faixaprecos.length">
+  Nenhuma faixa cadastrada <a data-ui-sref="faixaprecos.create">cadastrar</a>?
+</div>
+</section>

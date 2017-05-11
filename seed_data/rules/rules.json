@@ -1,0 +1,183 @@
+{
+  "rules": [{
+      "name" : "backup_lista",
+      "resources": "/api/backups"
+    }, {
+      "name" : "backup_id",
+      "resources": "/api/backups/:backupId"
+    }, {
+      "name" : "caixa_lista",
+      "resources": "/api/caixas"
+    }, {
+      "name" : "caixa_status",
+      "resources": "/api/statusCaixa"
+    }, {
+      "name" : "caixa_id",
+      "resources": "/api/caixas/:caixaId"
+    }, {
+      "name" : "pagamento",
+      "resources": "/api/pay"
+    }, {
+      "name" : "configuracoes_lista",
+      "resources": "/api/configuracoes"
+    }, {
+      "name" : "configuracoes_id",
+      "resources": "/api/configuracoes/:configuracoesId"
+    },  {
+      "name" : "cupom_entrada",
+      "resources": "/api/cupom/entrada/:entradaveiculoId"
+    }, {
+      "name" : "empresa_lista",
+      "resources": "/api/empresa"
+    }, {
+      "name" : "empresa_id",
+      "resources": "/api/empresa/:empresaId"
+    }, {
+      "name" : "entrada_veiculo_lista",
+      "resources": "/api/entradaveiculos"
+    }, {
+      "name" : "entrada_veiculo_id",
+      "resources": "/api/entradaveiculos/:entradaveiculoId"
+    }, {
+      "name" : "saida_veiculo_permanencia",
+      "resources": "/api/saidaveiculos/:entradaveiculoId/permanencia"
+    }, {
+      "name" : "saida_veiculo_precos",
+      "resources": "/api/saidaveiculos/:entradaveiculoId/:tabelaprecoId"
+    }, {
+      "name" : "faixa_preco_lista",
+      "resources": "/api/faixaprecos"
+    }, {
+      "name" : "faixa_preco_id",
+      "resources": "/api/faixaprecos/:faixaprecoId"
+    }, {
+      "name" : "marcas_lista",
+      "resources": "/api/marcas"
+    }, {
+      "name" : "marcas_id",
+      "resources": "/api/marcas/:marcaId"
+    }, {
+      "name" : "mensalista_lista",
+      "resources": "/api/mensalista"
+    }, {
+      "name" : "mensalista_valor",
+      "resources": "/api/mensalistavalor"
+    }, {
+      "name" : "mensalista_vigencia_lista",
+      "resources": "/api/mensalista/:mensalistaId/vigencia"
+    }, {
+      "name" : "mensalista_vigencia_id",
+      "resources": "/api/mensalista/:mensalistaId/vigencia/:mensalistaVigenciaId"
+    }, {
+      "name" : "mensalista_vigencia_pagamento",
+      "resources": "/api/mensalista/:mensalistaId/vigencia/:mensalistaVigenciaId/pay"
+    }, {
+      "name" : "mensalista_id",
+      "resources": "/api/mensalista/:mensalistaId"
+    }, {
+      "name" : "mensalista_cancelar",
+      "resources": "/api/mensalista/:mensalistaId/cancel"
+    }, {
+      "name" : "mensalista_placa",
+      "resources": "/api/mensalista/findByPlaca/:mensalistaPlaca"
+    }, {
+      "name" : "modelos_lista",
+      "resources": "/api/modelos"
+    }, {
+      "name" : "modelos_id",
+      "resources": "/api/modelos/:modeloId"
+    }, {
+      "name" : "tabelaprecos_lista",
+      "resources": "/api/tabelaprecos"
+    }, {
+      "name" : "tabelaprecos_id",
+      "resources": "/api/tabelaprecos/:tabelaprecoId"
+    }, {
+      "name" : "users_lista",
+      "resources": "/api/users"
+    }, {
+      "name" : "users_id",
+      "resources": "/api/users/:userId"
+    }, {
+      "name" : "roles_lista",
+      "resources": "/api/roles"
+    }, {
+      "name" : "roles_rules_id",
+      "resources": "/api/role/rules/:roleId"
+    }, {
+      "name" : "roles_id",
+      "resources": "/api/roles/:roleId"
+    }, {
+      "name" : "userrules_lista",
+      "resources": "/api/userrules/:userId"
+    }, {
+      "name" : "auth_forgot",
+      "resources": "/api/auth/forgot"
+    }, {
+      "name" : "auth_reset",
+      "resources": "/api/auth/reset/:token"
+    }, {
+      "name" : "auth_signup",
+      "resources": "/api/auth/signup"
+    }, {
+      "name" : "auth_signin",
+      "resources": "/api/auth/signin"
+    }, {
+      "name" : "auth_signout",
+      "resources": "/api/auth/signout"
+    }, {
+      "name" : "auth_facebook",
+      "resources": "/api/auth/facebook"
+    }, {
+      "name" : "auth_facebook_callback",
+      "resources": "/api/auth/facebook/callback"
+    }, {
+      "name" : "auth_twitter",
+      "resources": "/api/auth/twitter"
+    }, {
+      "name" : "auth_twitter_calback",
+      "resources": "/api/auth/twitter/callback"
+    }, {
+      "name" : "auth_google",
+      "resources": "/api/auth/google"
+    }, {
+      "name" : "auth_google_callback",
+      "resources": "/api/auth/google/callback"
+    }, {
+      "name" : "auth_linkedin",
+      "resources": "/api/auth/linkedin"
+    }, {
+      "name" : "auth_linkedin_callback",
+      "resources": "/api/auth/linkedin/callback"
+    }, {
+      "name" : "auth_github",
+      "resources": "/api/auth/github"
+    }, {
+      "name" : "auth_github_callback",
+      "resources": "/api/auth/github/callback"
+    }, {
+      "name" : "auth_paypal",
+      "resources": "/api/auth/paypal"
+    }, {
+      "name" : "auth_paypal_callback",
+      "resources": "/api/auth/paypal/callback"
+    }, {
+      "name" : "rules_lista",
+      "resources": "/api/rules"
+    }, {
+      "name" : "rules_id",
+      "resources": "'/api/rules/:ruleId"
+    }, {
+      "name" : "users_me",
+      "resources": "/api/users/me"
+    }, {
+      "name" : "users_accounts",
+      "resources": "/api/users/accounts"
+    }, {
+      "name" : "users_password",
+      "resources": "/api/users/password"
+    }, {
+      "name" : "users_picture",
+      "resources": "/api/users/picture"
+    }]
+}

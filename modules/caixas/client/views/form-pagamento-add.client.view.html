@@ -1,0 +1,91 @@
+<section>
+  <div class="form-group">
+    <div class="row" ng-show="formapagamentoscope.pagamentos.length > 0">
+      <div class="col-xs-12 col-sm-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Forma</th>
+              <th class="text-right">Valor</th>
+              <th class="text-right"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-ng-repeat="pag in formapagamentoscope.pagamentos">
+              <td>
+                <span data-ng-bind="formapagamentoscope.pagamentos.indexOf(pag) + 1"></span>
+              </td>
+              <td>
+                <span data-ng-bind="pag.FormaPagamento == 'dinheiro' ? 'Dinheiro' : (pag.FormaPagamento == 'cartaodebito' ? 'Débito' : (pag.FormaPagamento == 'cartaocredito' ? 'Crédito' : 'Cheque') )"></span>
+              </td>
+              <td class="text-right">
+                <span data-ng-bind="pag.Valor | number: 2"></span>
+              </td>
+              <td class="text-right">
+                <button type="button" class="btn btn btn-danger" ng-click="formapagamentoscope.pagamentos.splice(formapagamentoscope.pagamentos.indexOf(pag), 1); addpagamentoshow = true; calcula();">x</button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+             <tr>
+               <th></th>
+               <th></th>
+               <th class="text-right" data-ng-bind="totalFormaPagamentoAdd() | number: 2"></th>
+               <th class="text-right"></th>
+             </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <div class="row" ng-show="calcula() > 0">
+      <div class="col-xs-10 col-sm-10">
+        <h3>Troco: {{formapagamentoscope.formapagamentotroco | currency:"R$ ":2}}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default" ng-show="formapagamentoscope.formapagamentototal > totalFormaPagamentoAdd()">
+    <div class="panel-heading">
+      <h3 class="panel-title">Novo Pagamento</h3>
+    </div>
+    <div class="panel-body">
+      <form name="vm.form.addPAgamento" class="form-horizontal" ng-submit="adicionarPagamento()" novalidate scroll-to="valorFormaPagamento">
+        <fieldset>
+          <div class="row">
+            <div class="col-xs-12 col-sm-4">
+              <div class="funkyradio">
+                  <div class="funkyradio-success">
+                      <input type="radio" value="dinheiro" name="formapagamento" id="fpDinheiro"  ng-model="formapagamentoselected" checked/>
+                      <label for="fpDinheiro" >Dinheiro</label>
+                  </div>
+                  <div class="funkyradio-success">
+                      <input type="radio" value="cartaodebito" name="formapagamento" id="fpCartaoDebito" ng-model="formapagamentoselected" />
+                      <label for="fpCartaoDebito">Débito</label>
+                  </div>
+                  <div class="funkyradio-success">
+                      <input type="radio" value="cartaocredito" name="formapagamento" id="fpCartaoCredito" ng-model="formapagamentoselected" />
+                      <label for="fpCartaoCredito">Crédito</label>
+                  </div>
+                  <div class="funkyradio-success">
+                      <input type="radio" value="cheque" name="formapagamento" id="fpCheque" ng-model="formapagamentoselected" />
+                      <label for="fpCheque">Cheque</label>
+                  </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-8" >
+              <div class="row">
+                <div class="col-xs-5 col-sm-6 vertical-align-bottom">
+                  <label for="valorFormaPagamento">Valor</label>
+                  <input type="text"  id="valorFormaPagamento" ui-number-mask="decimals" ng-model="formapagamentovalor" class="form-control" autofocus>
+                </div>
+                <div class="col-xs-5 col-sm-5 text-right vertical-align-bottom">
+                  <button type="submit" class="btn btn-primary" ng-disabled="formapagamentovalor <= 0">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</section>

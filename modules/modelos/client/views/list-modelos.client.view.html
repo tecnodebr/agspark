@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Modelos</h1>
+  </div>
+  <ul class="list-group" data-ng-repeat="(key, value) in vm.modelos | orderBy: 'marca.nome' | groupBy: 'marca.nome'">
+    <h4 class="list-group-item-heading" data-ng-bind="key"></h4>
+    <li ng-repeat="modelo in value" data-ui-sref="modelos.view({ modeloId: modelo._id })"
+       class="list-group-item">
+      <!-- <small class="list-group-item-text">
+        Posted on
+        <span data-ng-bind="modelo.created | date:'mediumDate'"></span>
+        by
+        <span data-ng-if="modelo.user" data-ng-bind="modelo.user.displayName"></span>
+      </small> -->
+
+      <span class="list-group-item-heading" data-ng-bind="modelo.nome"></span>
+    </li>
+  </ul>
+  <div class="alert alert-warning text-center" data-ng-if="vm.modelos.$resolved && !vm.modelos.length">
+    No Modelos yet, why don't you <a data-ui-sref="modelos.create">create one</a>?
+  </div>
+</section>

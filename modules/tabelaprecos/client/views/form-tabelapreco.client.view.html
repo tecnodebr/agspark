@@ -1,0 +1,150 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.tabelapreco._id ? 'Editar Tabela de preços' : 'Nova Tabela de preços'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.tabelaprecoForm" class="form-horizontal" ng-submit="vm.save(vm.form.tabelaprecoForm.$valid)" novalidate>
+      <fieldset>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-12 col-sm-8 col-lg-9">
+              <div class="panel panel-default" style="height:259px;">
+                <div class="panel-heading" >
+                  <h3 class="panel-title">Identificação da tabela</h3>
+                </div>
+                <div class="panel-body fill">
+                  <div class="col-xs-12 col-sm-12">
+                    <div class="form-group" show-errors>
+                      <label class="control-label" for="name">Nome</label>
+                      <input name="name" type="text" ng-model="vm.tabelapreco.name" id="name" class="form-control" placeholder="Nome" required>
+                      <div ng-messages="vm.form.tabelaprecoForm.name.$error" role="alert">
+                        <p class="help-block error-text" ng-message="required">Nome.</p>
+                      </div>
+                    </div>
+                    <div class="form-group" show-errors>
+                      <label class="control-label" for="descricao">Descrição da tabela Ex. "Tabela avulsa de segunda a sexta."</label>
+                      <input name="descricao" type="text" ng-model="vm.tabelapreco.descricao" id="name" class="form-control" placeholder="descricao" required>
+                      <div ng-messages="vm.form.tabelaprecoForm.descricao.$error" role="alert">
+                        <p class="help-block error-text" ng-message="required">Descrição para a tabela.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-lg-3">
+              <div class="panel panel-default" style="height:259px;">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Dias da semana</h3>
+                </div>
+                <div class="panel-body">
+                  <div class="checkbox" ng-repeat="item in vm.tabelapreco.diasDaSemana">
+                    <label>
+                      <input type="checkbox"
+                      ng-model="item.selecionado"
+                      > {{item.nome}}
+                      <!--ng-checked="isCheckedDiasDaSemana(item.codigo)"
+                      ng-change="diasDaSemanaSync(selecionado, item)"-->
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-lg-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Faixas de preços selecionadas</h3>
+                </div>
+                <div class="panel-body">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Descrição</th>
+                        <th>Normal</th>
+                        <th>Adicional</th>
+                        <th>Remover</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr data-ng-repeat="fpselecionada in vm.tabelapreco.precos">
+                        <td>
+                          <span data-ng-bind="fpselecionada.descricao"></span>
+                        </td>
+                        <td>
+                          <span>{{fpselecionada.valorTempoNormal | currency:"R$ "}}</span>
+                        </td>
+                        <td>
+                          <span>{{fpselecionada.valorTempoAdicional | currency:"R$ "}}</span>
+                        </td>
+                        <td>
+                          <a class="btn btn-primary" data-ng-click="vm.removerFaixa(fpselecionada)" >
+                            <i class="glyphicon glyphicon-arrow-down"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Todas faixas de preço</h3>
+                  </div>
+                  <div class="panel-body">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Descrição</th>
+                          <th>Normal</th>
+                          <th>Adicional</th>
+                          <th>Selecionar</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr data-ng-repeat="faixapreco in vm.faixaprecos">
+                          <td>
+                            <span data-ng-bind="faixapreco.descricao"></span>
+                          </td>
+                          <td>
+                            <span>{{faixapreco.valorTempoNormal | currency:"R$ "}}</span>
+                          </td>
+                          <td>
+                            <span>{{faixapreco.valorTempoAdicional | currency:"R$ "}}</span>
+                          </td>
+
+                          <td>
+                            <a class="btn btn-primary" data-ng-click="vm.adicionarFaixa(faixapreco)" >
+                              <i class="glyphicon glyphicon-arrow-up"></i>
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-lg-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Situação faixa</h3>
+                </div>
+                <div class="panel-body">
+                  <div class="checkbox checkbox-slider--b checkbox-slider-lg" style="padding-top:0px;">
+                    <label>
+                      <input type="checkbox" name="ativo" ng-model="vm.tabelapreco.ativo" ><span>Ativa</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-default">{{vm.tabelapreco._id ? 'Atualizar' : 'Incluir'}}</button>
+            </div>
+            <div ng-show="vm.error" class="text-danger">
+              <strong ng-bind="vm.error"></strong>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </section>

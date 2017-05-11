@@ -1,0 +1,26 @@
+<section>
+  <div class="page-header">
+    <h1 data-ng-bind="vm.tabelapreco.name"></h1>
+  </div>
+  <div class="pull-right"
+       data-ng-show="vm.tabelapreco.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       data-ui-sref="tabelaprecos.edit({ tabelaprecoId: vm.tabelapreco._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" data-ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span data-ng-bind="vm.tabelapreco.created | date:'mediumDate'"></span>
+      by
+      <span data-ng-if="vm.tabelapreco.user"
+            data-ng-bind="vm.tabelapreco.user.displayName"></span>
+      <span data-ng-if="!vm.tabelapreco.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" data-ng-bind="vm.tabelapreco.content"></p>
+</section>

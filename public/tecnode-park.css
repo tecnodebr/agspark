@@ -1,0 +1,11 @@
+.panel-default > .panel-heading {
+  color: #ffffff !important;
+  background-color: #222222 !important;
+  border-color: #000000 !important;
+}
+
+.vertical-align-bottom {
+  display: inline-block;
+  vertical-align: bottom;
+  float: none;
+}

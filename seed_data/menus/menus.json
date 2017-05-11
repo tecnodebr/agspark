@@ -1,0 +1,101 @@
+{
+  "menus" : [{
+    "title": "Cópia de segurança",
+    "state": "backups",
+    "type": "dropdown",
+    "submenus": [{
+        "title": "Criar",
+        "state": "backups.create"
+      }]
+
+
+
+
+  }, {
+    "title": "Admin",
+    "state": "admin",
+    "type": "dropdown",
+    "submenus": [{
+        "title": "Listagem de configuração",
+        "state": "configuracoes.list"
+      }, {
+        "title": "Criar nova configuração",
+        "state": "configuracoes.create"
+      }, {
+        "title": "Cadastrar novo usuário",
+        "state": "authentication.signup"
+      }, {
+        "title": "Dados do ponto",
+        "state": "empresa.create"
+      }]
+  }, {
+    "title": "Movimento",
+    "state": "entradaveiculos",
+    "type": "dropdown",
+    "submenus": [{
+        "title": "Pátio",
+        "state": "entradaveiculos.list"
+      }, {
+        "title": "Registrar entrada",
+        "state": "entradaveiculos.create"
+      }, {
+        "title": "Controle de Caixa",
+        "state": "caixas.create"
+      },
+      {
+        "title": "Lista de Caixas",
+        "state": "caixas.list"
+      }]
+  }, {
+    "title": "Cadastros",
+    "state": "marcas",
+    "type": "dropdown",
+    "submenus": [{
+        "title": "Cadastrar nova Marca",
+        "state": "marcas.create"
+      }, {
+        "title": "Cadastrar novo Modelo",
+        "state": "modelos.create"
+      }]
+
+
+
+
+  }, {
+    "title": "Mensalistas",
+    "state": "mensalista",
+    "type": "dropdown",
+    "submenus": [{
+        "title": "Lista de mensalistas",
+        "state": "mensalista.list"
+      }, {
+        "title": "Cadastrar novo mensalista",
+        "state": "mensalista.create"
+      }]
+
+
+
+
+
+  }, {
+    "title": "Preços",
+    "state": "tabelaprecos",
+    "type": "dropdown",
+    "submenus": [{
+        "title": "Tabelas de preços",
+        "state": "tabelaprecos.list"
+      }, {
+        "title": "Criar nova tabela",
+        "state": "tabelaprecos.create"
+      }, {
+        "title": "Faixas de preços",
+        "state": "faixaprecos.list"
+      }, {
+        "title": "Criar nova faixa",
+        "state": "faixaprecos.create"
+      }]
+
+
+
+  }]
+}

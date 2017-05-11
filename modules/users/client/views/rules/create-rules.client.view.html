@@ -1,0 +1,39 @@
+<section ng-controller="RulesController">
+  <div class="page-header">
+    <h1>Nova Regra de Acesso</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="ruleForm" class="form-horizontal" ng-submit="create(ruleForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="name">Nome</label>
+          <input name="name" type="text" ng-model="name" id="name" class="form-control" placeholder="Nome" required>
+          <div ng-messages="ruleForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Nome da regra de acesso é obrigatório.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="route">Rota</label>
+          <input name="route" type="text" ng-model="route" id="route" class="form-control" placeholder="Rota">
+        </div>
+        <div class="form-group" show-errors>
+          <label for="permissions">Permissões</label>
+          <input name="permissions" type="text" ng-model="permissions" id="permissions" class="form-control" placeholder="Permissões">          
+        </div>
+        <div class="form-group" show-errors>
+          <div class="checkbox checkbox-slider--b checkbox-slider-md" style="padding-top:0px;">
+      			<label>
+      				<input type="checkbox" name="active" ng-model="active" ><span></span>
+      			</label>
+      		</div>
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-default">
+        </div>
+        <div ng-show="error" class="text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,32 @@
+<section ng-controller="RulesController" ng-init="findOne()">
+  <div class="page-header">
+    <h1 ng-bind="rule.title"></h1>
+  </div>
+  <div class="pull-right" ng-show="authentication.user._id == rule.user._id">
+    <a class="btn btn-primary" ui-sref="rules.edit({ruleId: rule._id})">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="remove();">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Criada em:
+      <span ng-bind="rule.created | date:'mediumDate'"></span>
+      por:
+      <span ng-bind="rule.user.displayName"></span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="rule.name"></p>
+  <label for="active" class="switch-light switch-ios" style="max-width: 90px;">
+    <input type="checkbox" name="active" ng-disabled="true" ng-model="rule.active" id="active" readonly="readonly">
+    <strong>Ativa</strong>
+    <span class="well">
+      <span>Off</span>
+      <span>On</span>
+      <a ></a>
+    </span>
+  </label>
+
+</section>

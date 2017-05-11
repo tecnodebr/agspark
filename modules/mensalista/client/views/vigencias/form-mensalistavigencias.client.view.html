@@ -1,0 +1,80 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.mensalista.nome}}</h1>
+  </div>
+  <div class="col-xs-12 col-md-12">
+    <form name="vm.form.vigenciaForm" ng-submit="update(vm.form.vigenciaForm.$valid)" novalidate>
+      <fieldset>
+        <div >
+          <div class="table">
+
+            <div class="form-group" show-errors>
+              <label for="mesvigencia">Vigência</label>
+              <div class="row vertical-align">
+                <div class="col-xs-3 col-md-1">
+                  <input type="text" id="mesvigencia" name="mesvigencia" class="form-control" ng-model="vm.vigencia.vigencia.mes" ng-disabled="vm.vigencia.status === 'pago'" placeholder="Mês" auto-tab-to="anovigencia" maxLength="2" mes-numeric-validation required />
+                </div>
+                <label for="anovigencia">/</label>
+                <div class="col-xs-4 col-md-1" >
+                  <input type="text" id="anovigencia" name="anovigencia" class="form-control" placeholder="Ano" ng-model="vm.vigencia.vigencia.ano" ng-disabled="vm.vigencia.status === 'pago'" maxLength="4" ano-numeric-validation  required />
+                </div>
+              </div>
+              <div ng-messages="vm.form.vigenciaForm.mesvigencia.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Mês de vigência é obrigatório.</p>
+                <p class="help-block error-text" ng-message="mesnumericvalidation">Mês informado é inválido.</p>
+              </div>
+              <div ng-messages="vm.form.vigenciaForm.anovigencia.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Ano de vigência é obrigatório.</p>
+                <p class="help-block error-text" ng-message="anonumericvalidation">Ano informado é inválido.</p>
+              </div>
+            </div>
+
+
+            <div class="form-group" show-errors>
+              <label>Período de validade</label>
+              <div class="row">
+                <div class="col-xs-12 col-md-2 text-left">
+                  <div class="col-xs-2">
+                    <label>De:</label>
+                  </div>
+                  <md-datepicker ng-model="vm.vigencia.periodovalidade.inicio" id="dtIni" name="dtIni" md-placeholder="Data Inicial" ng-disabled="vm.vigencia.status === 'pago'" required></md-datepicker>
+                </div>
+                <div class="col-xs-12 col-md-2 text-left" style="display:block !important;">
+                  <div class="col-xs-2">
+                    <label>Até:</label>
+                  </div>
+                  <md-datepicker ng-model="vm.vigencia.periodovalidade.fim" id="dtFim" name="dtFim" md-placeholder="Data Final" ng-disabled="vm.vigencia.status === 'pago'" required></md-datepicker>
+                </div>
+              </div>
+              <div ng-messages="vm.form.vigenciaForm.dtIni.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Data Inicial é obrigatório.</p>
+              </div>
+              <div ng-messages="vm.form.vigenciaForm.dtFim.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Data Final é obrigatório.</p>
+              </div>
+            </div>
+
+            <div class="form-group" show-errors>
+              <div class="row vertical-align">
+                <div class="col-xs-6 col-md-2">
+                  <label for="valorVigencia">Valor</label>
+                  <input type="text" id="valorVigencia" name="valorVigencia" ui-number-mask="decimals" ng-model="vm.vigencia.valor" ng-disabled="vm.vigencia.status === 'pago'" ng-change="valorVigenciaChange()" class="form-control" required>
+                  <div ng-messages="vm.form.vigenciaForm.valorVigencia.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Valor é obrigatório.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group text-right">
+              <button type="submit" class="btn btn-success" ng-disabled="vm.vigencia.status === 'pago'">Salvar</button>
+            </div>
+            <div ng-show="error" class="text-danger">
+              <strong ng-bind="error"></strong>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

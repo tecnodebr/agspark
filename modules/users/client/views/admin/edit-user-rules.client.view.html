@@ -1,0 +1,30 @@
+<section>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>Usuário <span ng-bind="user.username"></span></h1>
+      </div>
+      <div class="col-md-12" style="margin-top: 2em">
+        <input class="form-control col-md-4" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()"/>
+      </div>
+    </div>
+  </div>
+  <form name="userRuleForm"  class="form-group" ng-submit="updateRules(userRuleForm.$valid)" >
+    <div class="list-group" ng-init="listRulesUser()">
+      <div class="row" ng-repeat="rule in userRulesPresentation" >
+        <div class="col-md-3">
+          <span id="ruleName" name="rule.name" ng-model="rule.name">{{ rule.name }}</span>
+        </div>
+        <div class="col-md-6">
+          <div class="checkbox checkbox-slider--b checkbox-slider-md">
+      			<label>
+      				<input type="checkbox" name="rule.active" ng-model="rule.active" ng-bind-="rule.active"><span></span>
+      			</label>
+      		</div>
+        </div>
+      </div>
+    </div>
+    <input type="submit" class="btn btn-default">
+
+  </form>
+</section>

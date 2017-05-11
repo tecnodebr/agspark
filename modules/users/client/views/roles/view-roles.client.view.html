@@ -1,0 +1,44 @@
+<section ng-controller="RolesController" ng-init="findOne()">
+  <div class="page-header">
+    <h1 ng-bind="role.title"></h1>
+  </div>
+  <div class="pull-right">
+    <a class="btn btn-primary" ui-sref="roles.edit({roleId: role._id})">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="remove();">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-3"><strong>Nome</strong></div>
+        <div class="col-md-6" ng-bind="role.name"></div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-3"><strong>Ativa</strong></div>
+        <div class="col-md-6">
+          <div class="checkbox checkbox-slider--b checkbox-slider-md" style="padding-top:0px;">
+            <label>
+              <input type="checkbox" name="active" ng-model="role.active"ng-bind="role.active" ><span></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Regras Associadas</h3>
+    </div>
+    <div class="panel-body">
+      <span data-ng-repeat="rule in role.rules" data-bind="rule.name">
+      </span>
+    </div>
+  </div>
+</section>

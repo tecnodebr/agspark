@@ -1,0 +1,55 @@
+<section>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-xs-4 col-md-4">
+        <h1>Tabelas de preços</h1>
+      </div>
+      <div class="col-xs-8 col-md-offset-2 col-md-6  text-right" style="margin-top: 2em">
+        <input class="form-control col-md-4" type="text" ng-model="search.name" placeholder="Geral"  />
+      </div>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Descrição</th>
+        <th>Ativa</th>
+        <th>
+          Usuário
+        </th>
+        <th>
+          Data
+        </th>
+        <th>
+
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="tabelapreco in vm.tabelaprecos | filter:search"
+      data-ui-sref="tabelaprecos.view({ tabelaprecoId: tabelapreco._id })">
+      <td>
+        <span data-ng-bind="tabelapreco.name"></span>
+      </td>
+      <td>
+        <span data-ng-bind="tabelapreco.descricao"></span>
+      </td>
+      <td>
+        <div class="checkbox checkbox-slider--b checkbox-slider-sm" style="padding-top:0px;">
+          <input disabled type="checkbox" name="ativo" ng-model="tabelapreco.ativo" ><span></span>
+        </div>
+      </td>
+      <td>
+        <span data-ng-if="tabelapreco.user" data-ng-bind="tabelapreco.user.displayName"></span>
+      </td>
+      <td>
+        <span data-ng-bind="tabelapreco.created | date:'dd/MM/yyyy HH:mm'"></span>
+      </td>
+      <td>
+        <button type="button" class="btn btn-primary btn-xs">Editar</button>
+      </td>
+    </tr>
+  </table>
+</section>

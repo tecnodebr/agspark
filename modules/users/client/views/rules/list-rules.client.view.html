@@ -1,0 +1,20 @@
+<section ng-controller="RulesController" ng-init="find()">
+  <div class="page-header">
+    <h1>Rules</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="rule in rules" ui-sref="rules.view({ruleId: rule._id})" class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="rule.created | date:'mediumDate'"></span>
+        by
+        <span ng-bind="rule.user.displayName"></span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="rule.name"></h4>
+      <p class="list-group-item-text" ng-bind="rule.active"></p>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="rules.$resolved && !rules.length">
+    No rules yet, why don't you <a ui-sref="rules.create">create one</a>?
+  </div>
+</section>

@@ -1,0 +1,67 @@
+<section>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-xs-12 col-md-4">
+        <h1>{{vm.mensalista.nome}}</h1>
+      </div>
+      <div class="col-xs-12 col-md-offset-2 col-md-6  text-right" style="margin-top: 2em">
+        <input class="form-control col-md-4" type="text" ng-model="search.$" placeholder="Geral"  />
+      </div>
+    </div>
+  </div>
+
+  <div class="list-group">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <th>
+            Vigência
+          </th>
+          <th>
+            Status
+          </th>
+          <th>
+            Início
+          </th>
+          <th>
+            Fim
+          </th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr data-ng-repeat="vg in vm.mensalistavigencias | filter:search">
+            <td>
+              <span data-ng-bind="vg.vigencia.mes + '/' + vg.vigencia.ano"></span>
+            </td>
+            <td>
+              <strong><span data-ng-bind="vg.status === 'aberto' ? 'Aberto' : (vg.status === 'atraso' ? 'Em atraso' : 'Pago')" ng-class="vg.status === 'aberto' ? 'text-info' : (vg.status === 'atraso' ? 'text-danger' : 'text-success')"></span></strong>
+            </td>
+            <td>
+              <span data-ng-bind="vg.periodovalidade.inicio | date:'dd/MM/yyyy'"></span>
+            </td>
+            <td>
+              <span data-ng-bind="vg.periodovalidade.fim | date:'dd/MM/yyyy'"></span>
+            </td>
+            <td>
+              <a ng-if="vg.status != 'pago'" class="btn btn-primary" ui-sref="mensalistavigencias.edit({mensalistaId: vg.mensalista._id, mensalistaVigenciaId : vg._id})" ng-disabled="vg.status === 'pago'">
+                <i class="glyphicon glyphicon-edit"></i>
+              </a>
+              <a ng-if="vg.status === 'pago'" class="btn btn-primary" href="#" ng-disabled="vg.status === 'pago'">
+                <i class="glyphicon glyphicon-edit"></i>
+              </a>
+              <a ng-if="vg.status != 'pago'" class="btn btn-primary" ui-sref="mensalistavigenciaspagamento.pay({mensalistaId: vg.mensalista._id, mensalistaVigenciaId : vg._id})" ng-disabled="vg.status === 'pago'">
+                <i class="glyphicon glyphicon-usd"></i>
+              </a>
+              <a ng-if="vg.status === 'pago'" class="btn btn-primary" href="#" ng-disabled="vg.status === 'pago'">
+                <i class="glyphicon glyphicon-usd"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.mensalistavigencias.$resolved && !vm.mensalistavigencias.length">
+    Nenhuma vigência criada ainda, para criar uma clique <a data-ui-sref="mensalistavigencias.create">aqui</a>
+  </div>
+</section>
