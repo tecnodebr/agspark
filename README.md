@@ -6,16 +6,16 @@ Sistema de gerenciamento de pontos de estacionamemtos brasileiros
 Instale todos os pré requisitos, incluindo o Python e a gem do sass.
 Clone este repositório, uma vez clonado entre na raiz do repositório pelo console de comandos e dê os comandos:
 ```bash
-npm install  
+c:\>npm install  
 ```
 Aguarde a instalação dos pacotes
 ```bash
-bower install
+c:\>bower install
 ```
 Feito isso as dependencias serão instaladas, agora vai faltar alimentar a base de dados com os dados iniciais, para isso configure uma variavél de ambiente com o nome "MONGO_SEED"
 e set o valor dela com "true", no windows isso pode ser feito através do prompt de comando: 
 ```bash
-c:\>SET MONGO_SEED=true <enter>
+c:\>SET MONGO_SEED=true
 ```
 Depois certifique-se de que o mongodb está rodando na sua máquina, ele deve estar escutando na porta 27017, caso contrário não irá funcionar.
 Você pode utilizar o programa [Robomongo](https://robomongo.org/) para verificar se o mongo está ativo, no windows basta instalar o mongo e rodar o mongod.exe
@@ -27,7 +27,23 @@ No final da execução do programa deve aparecer uma mensagem dizendo que o SEED
 
 ## Logando no sistema
 Após subir a aplicação via grunt, basta abrir um navegador e acessar o endereço: http://localhost:3000
-Para efetuar login no sistema dois usuários o admin e o caixa.
+Para efetuar login no sistema dois usuários o "admin" e o "caixa", com a senha padrão "12345678Ab@"
+
+Uma vez logado no sistema como admin, você deve fazer algumas configurações básicas:
+
+* Cadastrar as suas faixas de preço Ex. 
+Descrição: Até uma hora 
+Tempo Inicial: 0,01 \\Sem tolerância
+Tempo Final: 60
+Tempo Adicional: 60
+Valor Tempo Normal: 10
+Valor Tempo Adicional: 4
+Obs: Os valores adicionais funcionam como um acréscimo acada ciclo, por exemplo, com a faixa acima se um carro ficar 1h15m no pátio ele será cobrado em R$ 14,00 caso ele fique 2h01m ele será cobrado em R$ 18,00
+
+Após cadastrar a faixa de preço, você terá que configurar uma "Tabela de preços", entre na Preços > Criar nova tabela.
+Dê um nome para tabela ex.: Avulsa de segunda a sexta-feira, uma descrição, selecione os dias da semana que ela ficará disponível, e inclua a faixa de preço cadastrada, marque ela como ativa e salve.
+
+Vá no menu Movimento > Controle de Caixa e informe o valor com que o caixa será aberto, feito isso o sistema já pode operar, vá em Movimento > Registrar Entrada e faça entrada dos veículos.
 
 ## Prerequisites
 Make sure you have installed all of the following prerequisites on your development machine:
