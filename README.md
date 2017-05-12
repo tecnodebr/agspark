@@ -1,6 +1,6 @@
 Sistema de gerenciamento de pontos de estacionamemtos brasileiros
 
-[Este sistema foi feito com base no framework MEANJS] (meanjs.org)
+[Este sistema foi feito com base no framework MEANJS] (http://meanjs.org/)
 
 ## Iniciando 
 Instale todos os pré requisitos, incluindo o Python e a gem do sass.
@@ -13,10 +13,21 @@ Aguarde a instalação dos pacotes
 bower install
 ```
 Feito isso as dependencias serão instaladas, agora vai faltar alimentar a base de dados com os dados iniciais, para isso configure uma variavél de ambiente com o nome "MONGO_SEED"
-e set o valor dela com "true", no windows isso pode ser feito através do prompt de comando: c:\>SET MONGO_SEED=true <enter>
-depois
+e set o valor dela com "true", no windows isso pode ser feito através do prompt de comando: 
+```bash
+c:\>SET MONGO_SEED=true <enter>
+```
+Depois certifique-se de que o mongodb está rodando na sua máquina, ele deve estar escutando na porta 27017, caso contrário não irá funcionar.
+Você pode utilizar o programa [Robomongo](https://robomongo.org/) para verificar se o mongo está ativo, no windows basta instalar o mongo e rodar o mongod.exe
 
+```bash
 c:\>grunt --force
+```
+No final da execução do programa deve aparecer uma mensagem dizendo que o SEED foi concluído com sucesso.
+
+## Logando no sistema
+Após subir a aplicação via grunt, basta abrir um navegador e acessar o endereço: http://localhost:3000
+Para efetuar login no sistema dois usuários o admin e o caixa.
 
 ## Prerequisites
 Make sure you have installed all of the following prerequisites on your development machine:
